@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Inscripción a eventos - La Academia del Fade">
+    <title>Inscripción a Evento | La Academia del Fade</title>
+    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/johndoe.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white" data-spy="affix" data-offset-top="510">
+        <div class="container">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link">Acerca</a></li>
+                    <li class="nav-item"><a href="index.html#resume" class="nav-link">Barberos</a></li>
+                    <li class="nav-item"><a href="index.html#portfolio" class="nav-link">Portafolio</a></li>
+                    <li class="nav-item"><a href="eventos.html" class="nav-link">Eventos</a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link">Contacto</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ml-2"><a href="login.html" class="btn btn-danger btn-sm">Iniciar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section bg-custom-gray py-5">
+        <div class="container">
+            <h2 class="mb-4"><span class="text-danger">Inscribirse</span> al Evento</h2>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p id="eventoInfo" class="text-muted">Cargando información del evento...</p>
+                    <form id="inscripcionForm" class="needs-validation" novalidate>
+                        <div class="form-group">
+                            <label for="eventoNombre" class="font-weight-bold">Evento</label>
+                            <input id="eventoNombre" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="nombrePersona" class="font-weight-bold">Tu Nombre</label>
+                            <input id="nombrePersona" type="text" class="form-control" required>
+                            <div class="invalid-feedback">Ingresa tu nombre.</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="emailPersona" class="font-weight-bold">Correo Electrónico</label>
+                            <input id="emailPersona" type="email" class="form-control" required>
+                            <div class="invalid-feedback">Ingresa un correo válido.</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="telefonoPersona" class="font-weight-bold">Teléfono</label>
+                            <input id="telefonoPersona" type="tel" class="form-control" required>
+                            <div class="invalid-feedback">Ingresa tu teléfono.</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="comentarioPersona" class="font-weight-bold">Comentario</label>
+                            <textarea id="comentarioPersona" class="form-control" rows="3"
+                                placeholder="Opcional"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-block mt-3">Confirmar inscripción</button>
+                    </form>
+                    <a href="eventos.html" class="btn btn-light btn-block mt-2">Volver a Eventos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function queryParam(param) {
+            var search = window.location.search.substring(1);
+            var params = new URLSearchParams(search);
+            return params.get(param) || '';
+        }
+
+        var nombreEvento = queryParam('nombre');
+        var ubicacion = queryParam('ubicacion');
+        var fecha = queryParam('fecha');
+        var hora = queryParam('hora');
+
+        var eventoInfo = document.getElementById('eventoInfo');
+        var eventoNombre = document.getElementById('eventoNombre');
+
+        if (!nombreEvento) {
+            eventoInfo.textContent = 'No se encontró información de evento. Vuelve a la página de eventos.';
+            eventoNombre.value = 'Evento no especificado';
+        } else {
+            eventoNombre.value = decodeURIComponent(nombreEvento);
+            eventoInfo.innerHTML = '<strong>Evento:</strong> ' + decodeURIComponent(nombreEvento) + '<br>' +
+                '<strong>Ubicación:</strong> ' + decodeURIComponent(ubicacion) + '<br>' +
+                '<strong>Fecha:</strong> ' + decodeURIComponent(fecha) + '<br>' +
+                '<strong>Horario:</strong> ' + decodeURIComponent(hora);
+        }
+
+        var inscripcionForm = document.getElementById('inscripcionForm');
+        inscripcionForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!inscripcionForm.checkValidity()) {
+                inscripcionForm.classList.add('was-validated');
+                return;
+            }
+
+            alert('Inscripción realizada con éxito para: ' + decodeURIComponent(nombreEvento) + '.');
+            inscripcionForm.reset();
+            inscripcionForm.classList.remove('was-validated');
+        });
+    </script>
+
+</body>
+
+</html>
