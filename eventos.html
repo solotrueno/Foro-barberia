@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Gestión de eventos - La Academia del Fade">
+    <title>Eventos | La Academia del Fade</title>
+    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/johndoe.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white" data-spy="affix" data-offset-top="510">
+        <div class="container">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link">Acerca</a></li>
+                    <li class="nav-item"><a href="index.html#resume" class="nav-link">Barberos</a></li>
+                    <li class="nav-item"><a href="index.html#portfolio" class="nav-link">Portafolio</a></li>
+                    <li class="nav-item active"><a href="eventos.html" class="nav-link">Eventos</a></li>
+                    <li class="nav-item"><a href="ecommerce.html" class="nav-link">Ecommerce</a></li>
+                    <li class="nav-item"><a href="notificaciones.html" class="nav-link">Notificaciones</a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link">Contacto</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item d-flex align-items-center">
+                        <span class="font-weight-bold text-dark">Barber Fade</span>
+                    </li>
+                    <li class="nav-item ml-2"><a href="login.html" class="btn btn-danger btn-sm">Iniciar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <section class="section bg-custom-gray py-5">
+        <div class="container">
+            <h2 class="mb-4"><span class="text-danger">Crear</span> Evento de Barberos</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <p class="text-muted">Solo usuarios logeados pueden publicar eventos. Completa los datos y
+                                presiona "Publicar Evento".</p>
+                            <form id="eventoForm" class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <label for="eventoNombre" class="font-weight-bold">Nombre del Evento</label>
+                                    <input id="eventoNombre" type="text" class="form-control"
+                                        placeholder="Taller de Fade Extremo" required>
+                                    <div class="invalid-feedback">Ingresa el nombre del evento.</div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="eventoUbicacion" class="font-weight-bold">Ubicación</label>
+                                    <input id="eventoUbicacion" type="text" class="form-control"
+                                        placeholder="Av. Principal 123, Monserrate" required>
+                                    <div class="invalid-feedback">Ingresa la ubicación.</div>
+                                </div>
+                                <div class="form-row mt-3">
+                                    <div class="col">
+                                        <label for="eventoFecha" class="font-weight-bold">Fecha</label>
+                                        <input id="eventoFecha" type="date" class="form-control" required>
+                                        <div class="invalid-feedback">Selecciona la fecha.</div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="eventoHora" class="font-weight-bold">Horario</label>
+                                        <input id="eventoHora" type="time" class="form-control" required>
+                                        <div class="invalid-feedback">Selecciona el horario.</div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="eventoDescripcion" class="font-weight-bold">Descripción</label>
+                                    <textarea id="eventoDescripcion" class="form-control" rows="3"
+                                        placeholder="Breve descripción del evento para atraer asistentes"
+                                        required></textarea>
+                                    <div class="invalid-feedback">Agrega una descripción del evento.</div>
+                                </div>
+                                <button type="submit" class="btn btn-danger btn-block mt-3">Publicar Evento</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Eventos Publicados</h5>
+                            <div id="eventosList">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Festival del Fade</h6>
+                                        <p class="card-text mb-1"><strong>Ubicación:</strong> Calle 12 #34-56, Bogotá
+                                        </p>
+                                        <p class="card-text mb-1"><strong>Fecha:</strong> 2026-05-30</p>
+                                        <p class="card-text mb-1"><strong>Horario:</strong> 16:00 - 20:00</p>
+                                        <p class="card-text"><strong>Descripción:</strong> Clase magistral con barberos
+                                            invitados, competencias de estilo y networking profesional.</p>
+                                        <a href="inscripcion.html?nombre=Festival%20del%20Fade&ubicacion=Calle%2012%20%2334-56%2C%20Bogot%C3%A1&fecha=2026-05-30&hora=16:00%20-%2020:00"
+                                            class="btn btn-danger btn-sm mt-2">Inscribirse</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-dark text-white py-4">
+        <div class="container text-center">
+            <a href="index.html" class="btn btn-light">Volver al Inicio</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('eventoForm');
+            var lista = document.getElementById('eventosList');
+
+            function crearCardEvento(evento) {
+                var card = document.createElement('div');
+                card.className = 'card mb-3';
+                card.innerHTML =
+                    '<div class="card-body">' +
+                    '<h6 class="card-title">' + evento.nombre + '</h6>' +
+                    '<p class="card-text mb-1"><strong>Ubicación:</strong> ' + evento.ubicacion + '</p>' +
+                    '<p class="card-text mb-1"><strong>Fecha:</strong> ' + evento.fecha + '</p>' +
+                    '<p class="card-text mb-1"><strong>Horario:</strong> ' + evento.hora + '</p>' +
+                    '<p class="card-text"><strong>Descripción:</strong> ' + evento.descripcion + '</p>' +
+                    '<button type="button" class="btn btn-danger btn-sm mt-2 btn-inscribirse" ' +
+                    'data-nombre="' + evento.nombre + '" ' +
+                    'data-ubicacion="' + evento.ubicacion + '" ' +
+                    'data-fecha="' + evento.fecha + '" ' +
+                    'data-hora="' + evento.hora + '">Inscribirse</button>' +
+                    '</div>';
+                return card;
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+
+                var evento = {
+                    nombre: document.getElementById('eventoNombre').value.trim(),
+                    ubicacion: document.getElementById('eventoUbicacion').value.trim(),
+                    fecha: document.getElementById('eventoFecha').value,
+                    hora: document.getElementById('eventoHora').value,
+                    descripcion: document.getElementById('eventoDescripcion').value.trim()
+                };
+
+                lista.insertBefore(crearCardEvento(evento), lista.firstChild);
+                form.reset();
+                form.classList.remove('was-validated');
+                alert('Evento publicado con éxito.');
+            });
+
+            // Manejador para botones dinámicos "Inscribirse"
+            lista.addEventListener('click', function (e) {
+                if (e.target.matches('.btn-inscribirse')) {
+                    var target = e.target;
+                    var url = 'inscripcion.html?nombre=' + encodeURIComponent(target.dataset.nombre) +
+                        '&ubicacion=' + encodeURIComponent(target.dataset.ubicacion) +
+                        '&fecha=' + encodeURIComponent(target.dataset.fecha) +
+                        '&hora=' + encodeURIComponent(target.dataset.hora);
+                    window.location.href = url;
+                }
+            });
+        });
+        });
+    </script>
+
+</body>
+
+</html>
