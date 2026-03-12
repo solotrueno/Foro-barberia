@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Ecommerce Barbería - La Academia del Fade">
+    <title>Ecommerce Barbería | La Academia del Fade</title>
+    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/johndoe.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white" data-spy="affix" data-offset-top="510">
+        <div class="container">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="index.html#about" class="nav-link">Acerca</a></li>
+                    <li class="nav-item"><a href="index.html#resume" class="nav-link">Barberos</a></li>
+                    <li class="nav-item"><a href="index.html#portfolio" class="nav-link">Portafolio</a></li>
+                    <li class="nav-item"><a href="eventos.html" class="nav-link">Eventos</a></li>
+                    <li class="nav-item active"><a href="ecommerce.html" class="nav-link">Ecommerce</a></li>
+                    <li class="nav-item"><a href="index.html#contact" class="nav-link">Contacto</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ml-2"><a href="login.html" class="btn btn-danger btn-sm">Iniciar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section bg-custom-gray py-5">
+        <div class="container">
+            <h2 class="mb-4"><span class="text-danger">Shop</span> Barbería</h2>
+            <p>Productos y carrito de compras con pasarela de pago.</p>
+
+            <div class="row" id="productList"></div>
+
+            <div class="card mt-4 shadow-sm">
+                <div class="card-body">
+                    <h4>Carrito</h4>
+                    <div id="cartItems"></div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                        <button id="checkoutBtn" class="btn btn-danger">Pagar</button>
+                    </div>
+                    <div id="checkoutMessage" class="mt-3"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        const products = [
+            { id: 1, name: 'Aceite para Barba Premium', price: 35000, description: 'Nutre y suaviza la barba.', image: 'assets/imgs/producto1.jpg' },
+            { id: 2, name: 'Cera de Estilo Firme', price: 28000, description: 'Fijación duradera con brillo natural.', image: 'assets/imgs/producto2.jpg' },
+            { id: 3, name: 'Champú 2 en 1 Barbería', price: 24000, description: 'Limpieza y acondicionador en un solo paso.', image: 'assets/imgs/producto3.jpg' },
+            { id: 4, name: 'Set de Cuchillas de Repuesto', price: 19000, description: '5 cuchillas de alta precisión.', image: 'assets/imgs/producto4.jpg' }
+        ];
+        let cart = [];
+
+        function formatCurrency(value) {
+            return value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('productList');
+            container.innerHTML = '';
+            products.forEach(p => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-3';
+                col.innerHTML = `
+            <div class="card mb-4">
+                <img src="${p.image}" class="card-img-top" alt="${p.name}" style="height: 170px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">${p.name}</h5>
+                    <p class="card-text">${p.description}</p>
+                    <p class="font-weight-bold">$ ${formatCurrency(p.price)}</p>
+                    <button class="btn btn-danger btn-sm w-100" data-id="${p.id}">Agregar al carrito</button>
+                </div>
+            </div>
+        `;
+                container.appendChild(col);
+            });
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>El carrito está vacío.</p>';
+            }
+
+            cart.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'd-flex justify-content-between align-items-center mb-2';
+                row.innerHTML = `
+            <div>
+                <strong>${item.name}</strong> x ${item.quantity}
+            </div>
+            <div>
+                $ ${formatCurrency(item.price * item.quantity)}
+                <button class="btn btn-sm btn-link text-danger remove-item" data-id="${item.id}">Eliminar</button>
+            </div>
+        `;
+                cartItems.appendChild(row);
+                total += item.price * item.quantity;
+            });
+
+            document.getElementById('cartTotal').innerText = formatCurrency(total);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(i => i.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            renderCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            renderCart();
+        }
+
+        function setupEvents() {
+            document.getElementById('productList').addEventListener('click', function (e) {
+                if (e.target.matches('button[data-id]')) {
+                    addToCart(parseInt(e.target.getAttribute('data-id'), 10));
+                }
+            });
+
+            document.getElementById('cartItems').addEventListener('click', function (e) {
+                if (e.target.matches('.remove-item')) {
+                    removeFromCart(parseInt(e.target.getAttribute('data-id'), 10));
+                }
+            });
+
+            document.getElementById('checkoutBtn').addEventListener('click', function () {
+                if (cart.length === 0) {
+                    document.getElementById('checkoutMessage').innerHTML = '<div class="alert alert-warning">Agrega productos primero.</div>';
+                    return;
+                }
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                document.getElementById('checkoutMessage').innerHTML = `<div class="alert alert-success">Pago completado por $ ${formatCurrency(total)}. ¡Gracias por tu compra!</div>`;
+                cart = [];
+                renderCart();
+            });
+        }
+
+        renderProducts();
+        renderCart();
+        setupEvents();
+    </script>
+
+</body>
+
+</html>
